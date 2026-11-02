@@ -1,0 +1,7 @@
+# Generated reports (keep curated samples in examples/)
+/db2_dpf_map_*.txt
+
+# Editor / OS noise
+*.swp
+*~
+.DS_Store

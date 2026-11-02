@@ -1,0 +1,67 @@
+
+====================================================================================================
+## 1. INSTANCE / HOST
+====================================================================================================
+Date        : Mon Nov  2 18:07:35 UTC 2026
+Host        : db2host
+Instance    : db2inst1
+Inst home   : /database/config/db2inst1
+OS          : Linux 6.8.0-86-generic
+CPU / Mem   : 4 cores / 7 GB
+
+Informational tokens are "DB2 v11.5.0.0", "s1906101300", "DYN1906101300AMD64", 
+and Fix Pack "0".
+Product is installed at "/opt/ibm/db2/V11.5".
+
+--- db2nodes.cfg (/database/config/db2inst1/sqllib/db2nodes.cfg) ---
+0 db2host 0
+
+--- FCM ports in /etc/services ---
+db2c_db2inst1      50000/tcp
+db2c_db2inst1_ssl  50001/tcp
+DB2_db2inst1       60000/tcp
+DB2_db2inst1_1     60001/tcp
+DB2_db2inst1_2     60002/tcp
+DB2_db2inst1_3     60003/tcp
+DB2_db2inst1_4     60004/tcp
+DB2_db2inst1_END   60005/tcp
+
+--- Logical port -> FCM service -> port ---
+PARTITION  LOGPORT    SERVICE                   PORT
+0          0          DB2_db2inst1              60000/tcp
+
+--- Listening TCP sockets ---
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN     
+tcp        0      0 0.0.0.0:50000           0.0.0.0:*               LISTEN     
+tcp        0      0 127.0.0.11:46707        0.0.0.0:*               LISTEN     
+tcp6       0      0 :::55000                :::*                    LISTEN     
+tcp6       0      0 :::32775                :::*                    LISTEN     
+tcp6       0      0 :::22                   :::*                    LISTEN     
+
+--- db2set -all ---
+[i] DB2_ATS_ENABLE=YES
+[i] DB2COMM=TCPIP
+[g] DB2SYSTEM=db2host
+
+--- DBM CFG (key items) ---
+ Max number of concurrently active databases     (NUMDB) = 32
+ Diagnostic data directory path               (DIAGPATH) = /database/config/db2inst1/sqllib/db2dump/ $m
+ Current member resolved DIAGPATH                        = /database/config/db2inst1/sqllib/db2dump/DIAG0000/
+ Alternate diagnostic data directory path (ALT_DIAGPATH) = 
+ Current member resolved ALT_DIAGPATH                    = 
+ Default database path                       (DFTDBPATH) = /database/data
+ Global instance memory (% or 4KB)     (INSTANCE_MEMORY) = AUTOMATIC(1687953)
+ TCP/IP Service name                          (SVCENAME) = db2c_db2inst1
+ SSL service name                         (SSL_SVCENAME) = 
+ Number of FCM buffers                 (FCM_NUM_BUFFERS) = AUTOMATIC(4096)
+ Number of FCM channels               (FCM_NUM_CHANNELS) = AUTOMATIC(2048)
+
+====================================================================================================
+## 2. DATABASE DIRECTORY ENTRY (catalog partition)
+====================================================================================================
+    SQL1013N  The database alias name or database name "TESTDB12" could not be 
+    found.  SQLSTATE=42705
+    !! WARN: partition 0 not reachable for catalog queries
+No partition reachable - aborting.
